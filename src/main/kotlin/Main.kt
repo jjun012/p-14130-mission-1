@@ -37,7 +37,6 @@ fun main() {
                     println("${quote.num} / ${quote.author} / ${quote.content}")
                 }
             }
-
             command.startsWith("삭제?id=") -> {
                 val id = command.substringAfter("id=").toInt()
                 val quote = list.find { it.num == id }
@@ -47,6 +46,26 @@ fun main() {
                 } else {
                     list.remove(quote)
                     println("${id}번 명언이 삭제되었습니다.")
+                }
+            }
+            command.startsWith("수정?id=") -> {
+                val id = command.substringAfter("id=").toInt()
+                val index = list.indexOfFirst { it.num == id }
+
+                if (index == -1) {
+                    println("${id}번 명언은 존재하지 않습니다.")
+                } else {
+                    val quote = list[index]
+
+                    println("명언(기존) : ${quote.content}")
+                    print("명언 : ")
+                    val newContent = sc.nextLine()
+
+                    println("작가(기존) : ${quote.author}")
+                    print("작가 : ")
+                    val newAuthor = sc.nextLine()
+
+                    list[index] = quote.copy(content = newContent, author = newAuthor)
                 }
             }
         }
