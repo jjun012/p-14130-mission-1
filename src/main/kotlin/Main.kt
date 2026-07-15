@@ -2,10 +2,12 @@ package com
 
 import java.util.Scanner
 
+data class Quote(val num: Int,val content: String, val author: String)
 fun main() {
     val sc = Scanner(System.`in`)
     println("== 명언 앱 ==")
 
+    val list=mutableListOf<Quote>()
     var num = 0
 
     while (true) {
@@ -20,6 +22,15 @@ fun main() {
 
                 num++
                 println("${num}번 명언이 등록되었습니다.")
+                list.add(Quote(num, content, author))
+            }
+            "목록" -> {
+                println("번호 / 작가 / 명언")
+                println("----------------------")
+                for (i in list.size - 1 downTo 0) {
+                    val quote = list[i]
+                    println("${quote.num} / ${quote.author} / ${quote.content}")
+                }
             }
         }
     }
