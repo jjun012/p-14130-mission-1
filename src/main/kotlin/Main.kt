@@ -40,8 +40,14 @@ fun main() {
 
             command.startsWith("삭제?id=") -> {
                 val id = command.substringAfter("id=").toInt()
-                list.removeIf { it.num == id }
-                println("${id}번 명언이 삭제되었습니다.")
+                val quote = list.find { it.num == id }
+
+                if (quote == null) {
+                    println("${id}번 명언은 존재하지 않습니다.")
+                } else {
+                    list.remove(quote)
+                    println("${id}번 명언이 삭제되었습니다.")
+                }
             }
         }
     }
